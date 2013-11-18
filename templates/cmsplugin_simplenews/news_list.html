@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans 'latest news'|capfirst %}{% endblock %}
+{% block content %}
+    <div class="row">
+        <article class="span12">
+            <h2>{% trans 'latest news'|capfirst %}</h2>
+            <ul>
+                {% for news_item in news_list %}
+                    <li>
+                        <time class="date"
+                              datetime="{{ news_item.pub_date|date:"Y-m-d" }}">{{ news_item.pub_date|date:"d F, Y" }}</time>
+                        <h3>
+                            <a href="{{ news_item.get_absolute_url }}">{{ news_item.title }}</a>
+                        </h3>
+
+                        <div>{{ news_item.content|safe }}</div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% if is_paginated %}
+            <div class="pagination">
+        <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+        {% endif %}
+
+            <span class="current">{% trans 'Page' %} {{ page_obj.number }}</span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+            {% endif %}
+    </span>
+            </div>
+        {% endif %}
+        </article>
+    </div>
+{% endblock %}

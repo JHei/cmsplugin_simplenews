@@ -1,0 +1,17 @@
+{% load i18n %}
+<div class="head-box">
+<h4>{% trans 'latest news'|capfirst %}</h4>
+</div>
+<div class="content-box">
+{% for news_item in latest %}
+        <time class="date" datetime="{{ news_item.pub_date|date:"Y-m-d" }}">{{ news_item.pub_date|date:"d F, Y" }}</time>
+        <span>
+            <a href="{{ news_item.get_absolute_url }}">{{ news_item.title }}</a>
+        </span>
+{% empty %}
+	<li>{% trans "No news yet" %}</li>
+{% endfor %}
+</div>
+<div class="bottom-box">
+    <a class="link" href="{% url 'news_list' %}">{% trans 'More news' %}</a>
+</div>
