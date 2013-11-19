@@ -8,8 +8,9 @@ from .settings import SIMPLENEWS_PLUGIN_MENU_INDEX
 class NewsMenu(Menu):
     def get_nodes(self, request):
         nodes = []
-        n = NavigationNode(_('News'), reverse_lazy('news_list'), 1, attr={'targetIndex': SIMPLENEWS_PLUGIN_MENU_INDEX})
-        nodes.append(n)
+        if SIMPLENEWS_PLUGIN_MENU_INDEX > 0:
+            n = NavigationNode(_('News'), reverse_lazy('news_list'), 1, attr={'targetIndex': SIMPLENEWS_PLUGIN_MENU_INDEX})
+            nodes.append(n)
         return nodes
 
 
